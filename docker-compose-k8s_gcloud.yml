@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  db:
+    image: postgres:9.4
+    ports:
+      - "5432:5432"
+  vote:
+    image: gcr.io/$PROJECT_ID/examplevotingapp_vote:1.0
+    ports:
+      - "5000:80"
+    deploy:
+      replicas: 2
+  result:
+    image: gcr.io/$PROJECT_ID/examplevotingapp_result:1.0
+    ports:
+      - "5001:80"
+  worker:
+    image: gcr.io/$PROJECT_ID/examplevotingapp_worker:1.0
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports: 
+      - "8080:8080"
