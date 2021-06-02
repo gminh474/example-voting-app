@@ -10,17 +10,17 @@ services:
     ports:
       - "5432:5432"
   vote:
-    image: gcr.io/$PROJECT_ID/examplevotingapp_vote:1.0
+    image: gcr.io/$PROJECT_ID/examplevotingapp_vote:$_EXAMPLE_VOTING_APP_VERSION
     ports:
       - "5000:80"
     deploy:
       replicas: 2
   result:
-    image: gcr.io/$PROJECT_ID/examplevotingapp_result:1.0
+    image: gcr.io/$PROJECT_ID/examplevotingapp_result:$_EXAMPLE_VOTING_APP_VERSION
     ports:
       - "5001:80"
   worker:
-    image: gcr.io/$PROJECT_ID/examplevotingapp_worker:1.0
+    image: gcr.io/$PROJECT_ID/examplevotingapp_worker:$_EXAMPLE_VOTING_APP_VERSION
   visualizer:
     image: dockersamples/visualizer:stable
     ports: 

@@ -14,7 +14,7 @@ spec:
   selector: 
     app: redis
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
@@ -54,13 +54,16 @@ spec:
   selector: 
     app: db
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: db
   # labels:
   #   app: db
 spec:
+  selector:
+    matchLabels:
+      app: db
   template:
     metadata:
       labels:
@@ -116,13 +119,16 @@ spec:
     app: result
   # clusterIP: None
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: result
   labels:
     app: result
 spec:
+  selector:
+    matchLabels:
+      app: result
   replicas: 1
   template:
     metadata:
@@ -131,7 +137,7 @@ spec:
     spec:
       containers:
       - name: result
-        image: gcr.io/$PROJECT_ID/examplevotingapp_result:1.0
+        image: gcr.io/$PROJECT_ID/examplevotingapp_result:$_EXAMPLE_VOTING_APP_VERSION
         ports:
         - containerPort: 80
           name: result
@@ -153,13 +159,16 @@ spec:
     app: vote
   # clusterIP: None
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vote
   labels:
     app: vote
 spec:
+  selector:
+    matchLabels:
+      app: vote
   replicas: 2
   template:
     metadata:
@@ -168,7 +177,7 @@ spec:
     spec:
       containers:
         - name: vote
-          image: gcr.io/$PROJECT_ID/examplevotingapp_vote:1.0
+          image: gcr.io/$PROJECT_ID/examplevotingapp_vote:$_EXAMPLE_VOTING_APP_VERSION
           ports:
             - 
               containerPort: 80
@@ -186,13 +195,16 @@ spec:
   selector: 
     app: worker
 --- 
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata: 
   labels: 
     app: worker
   name: worker
 spec: 
+  selector:
+    matchLabels:
+      app: worker
   replicas: 1
   template: 
     metadata: 
@@ -201,5 +213,5 @@ spec:
     spec: 
       containers: 
         - 
-          image: gcr.io/$PROJECT_ID/examplevotingapp_worker:1.0
+          image: gcr.io/$PROJECT_ID/examplevotingapp_worker:$_EXAMPLE_VOTING_APP_VERSION
           name: worker
