@@ -1,14 +1,16 @@
-FROM microsoft/dotnet:2.1-sdk-nanoserver-sac2016 as builder
+
+   
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as builder
 
 WORKDIR /Worker
-COPY Worker/Worker.csproj .
+COPY src/Worker/Worker.csproj .
 RUN dotnet restore
 
-COPY /Worker .
+COPY src/Worker/ .
 RUN dotnet publish -c Release -o /out Worker.csproj
 
 # app image
-FROM microsoft/dotnet:2.1-runtime-nanoserver-sac2016
+FROM mcr.microsoft.com/dotnet/core/runtime:3.1
 
 WORKDIR /app
 ENTRYPOINT ["dotnet", "Worker.dll"]
