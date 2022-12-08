@@ -25,8 +25,7 @@ services:
       - back-tier
 
   worker:
-    build:
-      context: ./worker
+    image: dockersamples/worker 
     depends_on:
       - "redis"
     networks:
