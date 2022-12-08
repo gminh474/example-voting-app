@@ -20,7 +20,7 @@ services:
     ports:
       - "5001:80"
   worker:
-    image: gcr.io/$PROJECT_ID/examplevotingapp_worker:$_EXAMPLE_VOTING_APP_VERSION
+    image: dockersamples/worker
   visualizer:
     image: dockersamples/visualizer:stable
     ports: 
